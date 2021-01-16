@@ -8,7 +8,7 @@ class DatabaseController extends Controller
 {
     public function migrate()
     {
-        Artisan::call('migrate');
+        Artisan::call('migrate:fresh');
         Artisan::call('db:seed');
     }
 }
