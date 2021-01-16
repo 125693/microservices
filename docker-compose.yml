@@ -1,0 +1,38 @@
+# For more information: https://laravel.com/docs/sail
+version: "3"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: "php artisan serve --host=0.0.0.0"
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - lunch_db
+
+  kitchen:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: "php artisan queue:work"
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - lunch_db
+
+  lunch_db:
+    image: mysql:5.7.22
+    environment:
+      MYSQL_DATABASE: lunch
+      MYSQL_USER: lunch
+      MYSQL_PASSWORD: lunch
+      MYSQL_ROOT_PASSWORD: lunch
+    volumes:
+      - ./storage/dbdata:/var/lib/mysql
+    ports:
+      - 3306:3306
