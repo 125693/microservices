@@ -1,62 +1,65 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+Jornada de almuerzo ¡gratis!
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+Un reconocido restaurante ha decidido tener una jornada de donación de comida a los residentes de la región con la única condición de que el plato que obtendrán los comensales será aleatorio. El administrador del restaurante requiere con urgencia un sistema que permita pedir platos a la cocina.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+¿En qué consiste?
+El gerente del restaurante debe poder indicarle a la cocina que se debe preparar un plato, la cocina selecciona aleatoriamente el plato a preparar y pide a la bodega de alimentos los ingredientes requeridos, si la bodega tiene disponibilidad entrega los ingredientes a la cocina, si no debe comprarlos en la plaza de mercado. Cuando la cocina recibe los ingredientes, prepara el plato y entrega el plato preparado.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+¿Cómo funciona?
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+El gerente del restaurante presiona un botón que envía una orden a la cocina para preparar un nuevo plato. 
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+La cocina cuenta con una lista de 6 recetas disponibles (creados a criterio del candidato), los cuales deben usar únicamente los ingredientes disponibles (ver anexos con lista de ingredientes), todos los ingredientes deben ser usados en mínimo una receta. Cada receta contiene los ingredientes que la componen y la cantidad requerida de cada uno.
 
-## Laravel Sponsors
+Cuando la cocina recibe un pedido de un plato debe seleccionar aleatoriamente de la lista de recetas disponibles el plato a preparar.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+La cocina debe pedir a la bodega de alimentos los ingredientes para preparar el plato seleccionado. Debe esperar que los ingredientes sean entregados para continuar con la preparación del plato.
 
-### Premium Partners
+La bodega de alimentos inicia con una cantidad de 5 unidades por ingrediente. Cuando recibe un pedido de ingredientes debe verificar si los tiene disponibles, si no debe comprar los ingredientes restantes en la plaza de mercado, la cual puede tener o no disponibles los ingredientes.  Si no se tienen disponibles los ingredientes en la plaza, la bodega de alimentos debe esperar hasta que estén disponibles.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+La plaza de mercado se encuentra ubicado en la dirección https://recruitment.alegra.com/api/farmers-market/buy. Recibe en el parámetro ingredient el nombre del ingrediente que se desea comprar, las opciones válidas para este se indican en el Anexo de ingredientes.  Retorna en JSON un atributo con las cantidades vendidas (quanitySold) del ingrediente en la plaza, hay posibilidades de que el ingrediente no esté disponible, (se retorna quantitySold en 0). Se considera una compra exitosa cuando la respuesta de la plaza de mercado sea un número entero diferente de cero que indica las cantidades compradas.
 
-## Contributing
+La cocina puede entregar el plato únicamente cuando todos los ingredientes se encuentran disponibles, al prepararse el plato los ingredientes utilizados se disminuyen de la bodega de alimentos.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+La interfaz para el usuario debe contener mínimo los siguientes elementos:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Botón para pedir un plato. Tener en cuenta que como es una jornada de donación de platos gratis, se debe disponer el sistema para que reciba pedidos masivos de platos.
 
-## Security Vulnerabilities
+Se debe poder observar las órdenes en preparación en la cocina.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Debe mostrarse los ingredientes y sus cantidades disponibles en la bodega de alimentos y el historial de compras a la plaza de alimentos.
 
-## License
+Se debe poder observar el historial de pedidos realizados a la cocina.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Las recetas con ingredientes y cantidades deben poder observar en la pantalla.
+
+
+El gerente de la empresa le gusta mantenerse a la moda por lo tanto ha exigido que el desarrollo debe montarse en una arquitectura de microservicios que corren con docker.
+
+
+Ingredientes disponibles para las recetas:
+
+
+tomato
+
+lemon
+
+potato
+
+rice
+
+ketchup
+
+lettuce
+
+onion
+
+cheese
+
+meat
+
+chicken
